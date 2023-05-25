@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>landing page</title>
+</head>
+<style>
+    .form_div{
+        width: 100%;
+        height: 100px;
+        background: pink;
+    }
+    .table_div{
+        padding-top: 10px;
+        width: 100%;
+        height: 700px;
+        background: rgb(150, 123, 128);
+
+    }
+    table {
+  width: 100%;
+}
+
+th {
+  height: 70px;
+}
+td{
+    border:2px solid black;
+}
+
+</style>
+<body>
+    <div class="form_div">
+    <h1>Crudapp</h1>
+    <form action="{% url 'add' %}" method="POST">
+        {% csrf_token %}
+         <label>Name:</label><input type="text" placeholder="enter name" name="name" />
+         <label>Contact:</label><input type="number" placeholder="enter number" name="contact" />
+         <label>City:</label><input type="text" placeholder="enter city" name="city" />
+         <label>Country:</label><input type="text" placeholder="enter your country" name="country" />
+         <input type="submit" value="submit" />
+    </form>
+    <div class="table_div">
+        <table>
+            <thead>
+                <tr>
+                    <td>Name:</td>
+                    <td>Contact:</td>
+                    <td>City:</td>
+                    <td>Country:</td>
+                    <td>Action:</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <td>{{i.name}}</td>
+                    <td>{{i.contact}}</td>
+                    <td>{{i.city}}</td>
+                    <td>{{i.country}}</td>
+                    <td>
+                        <form method="POST" action="{% url 'add' %}">
+                            {% csrf_token %}
+                            <input type="id" value="{{i.id}}"  name="id" hidden />
+                            <input type="submit" value="Edit" />
+                        </form>
+                        <button>View</button>
+                        <button>Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</body>
+</html> 
